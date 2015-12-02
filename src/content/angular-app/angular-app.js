@@ -14,6 +14,9 @@ AngularApp
     .run(function ($rootScope, $http, $ui)
     {
         // Put $rootScope variables here
+        $rootScope.AppName = "diffr";
+        $rootScope.PageName = "Home";
+
         $rootScope.$ui = $ui;
     })
     // Bootstrap global events
