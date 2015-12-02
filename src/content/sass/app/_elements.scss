@@ -5,6 +5,8 @@ html, body
 {
     height: 100%;
     @include text-antialias();
+
+    background: $gray-lighter;
 }
 a
 {
@@ -37,41 +39,14 @@ h1, h2, h3, h4, h5, h6
 --------------------------------------------------- */
 #content-container
 {
-    padding: 85px 0 0;
+    background: white;
+    padding-top: 65px;
     position: relative;
+
+    @include box-shadow($gray-light 0 0 3px);
 }
 #footer-container
 {
-}
-#alert-notification
-{
-    display: none;
-    opacity: 0;
-    position: fixed;
-    text-align: center;
-    font-size: 16px;
-    z-index: 10000;
-
-    margin: 0;
-    padding: 15px 30px;
-    left: 50%;
-    bottom: -30px;
-}
-#alert-notification.alert-danger
-{
-    box-shadow: 0 0 10px #600;
-}
-#alert-notification.alert-success
-{
-    box-shadow: 0 0 10px #060;
-}
-#alert-notification.alert-warning
-{
-    box-shadow: 0 0 10px #660;
-}
-#alert-notification.alert-info
-{
-    box-shadow: 0 0 10px #066;
 }
 /*
     Form validation classes

@@ -1,14 +1,4 @@
 ﻿.navbar
 {
-    @include box-shadow($gray-light 0 0 3px);
-    
-    &.navbar-inverse
-    {
-        border: none;
-    }
-
-    .navbar-nav > li > a .fa
-    {
-        line-height: 0;
-    }
+    @include box-shadow($gray 0 0 5px);
 }
