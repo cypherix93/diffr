@@ -1,0 +1,51 @@
+# this list taken from http://stackoverflow.com/questions/4095696/mercurial-hgignore-for-visual-studio-2010-projects
+# use glob syntax
+syntax: glob
+
+*.obj
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.scc
+[Bb]in
+[Dd]ebug*/
+obj/
+[Rr]elease/
+_ReSharper*/
+[Pp]ackages/
+[Tt]humbs.db
+[Tt]est[Rr]esult*
+[Bb]uild[Ll]og.*
+*.[Pp]ublish.xml
+*.resharper
+*.orig
+[Bb]uild/
+[Dd]eploy/
+[Tt]est/
+[Tt]ools/FAKE/
+[Tt]ools/Npm*/
+[Tt]ools/Node.js/
+Backup*/
+_UpgradeReport_Files/
+UpgradeLog*.*
+bower_components/
+node_modules/
+
+
+# added by TFS to HG migration tool
+.lastTfsChangeSet
