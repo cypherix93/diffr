@@ -49,3 +49,4 @@ node_modules/
 
 # added by TFS to HG migration tool
 .lastTfsChangeSet
+.idea/

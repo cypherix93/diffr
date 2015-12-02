@@ -1,0 +1,34 @@
+{
+    "name": "diffr",
+    "version": "0.0.1",
+    "dependencies": {
+        "angular": "1.4.7",
+        "angular-bootstrap": "0.14.3",
+        "angular-messages": "1.4.7",
+        "angular-multiple-transclusion": "1.0.0",
+        "angular-sanitize": "1.4.7",
+        "bootstrap-sass-official": "3.3.5",
+        "fontawesome": "4.4.0",
+        "jquery": "1.11.2",
+        "jquery-validation": "1.13.1",
+        "jquery-validation-unobtrusive": "3.2.2"
+    },
+    "overrides": {
+        "bootstrap-sass-official": {
+            "main": [
+                "assets/javascripts/bootstrap.js",
+                "assets/fonts/**/*"
+            ]
+        },
+        "fontawesome": {
+            "main": [
+                "css/*",
+                "fonts/*"
+            ]
+        }
+    },
+    "devDependencies": {},
+    "resolutions": {
+        "angular": "1.4.7"
+    }
+}
