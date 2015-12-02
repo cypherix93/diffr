@@ -5867,7 +5867,7 @@ hr {
 --------------------------------------------------- */
 #content-container {
   background: white;
-  padding-top: 65px;
+  padding: 65px 30px 30px;
   position: relative;
   -webkit-box-shadow: #b3b3b3 0 0 3px;
   box-shadow: #b3b3b3 0 0 3px; }
