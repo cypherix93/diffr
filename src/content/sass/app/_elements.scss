@@ -1,0 +1,161 @@
+﻿/*
+    Global General Elements
+--------------------------------------------------- */
+html, body
+{
+    height: 100%;
+    @include text-antialias();
+}
+a
+{
+    cursor: pointer;
+    text-decoration: none !important;
+
+    &:hover
+    {
+        color: $brand-info;
+    }
+}
+a, .btn, button
+{
+    @include transitions();
+    outline: none !important;
+}
+hr
+{
+    float: none;
+    clear: both;
+    margin: 10px 0;
+}
+h1, h2, h3, h4, h5, h6
+{
+    //margin: 0;
+    //text-shadow: $gray-dark 0 0 4px;
+}
+/*
+    Layout Objects
+--------------------------------------------------- */
+#content-container
+{
+    padding: 85px 0 0;
+    position: relative;
+}
+#footer-container
+{
+}
+#alert-notification
+{
+    display: none;
+    opacity: 0;
+    position: fixed;
+    text-align: center;
+    font-size: 16px;
+    z-index: 10000;
+
+    margin: 0;
+    padding: 15px 30px;
+    left: 50%;
+    bottom: -30px;
+}
+#alert-notification.alert-danger
+{
+    box-shadow: 0 0 10px #600;
+}
+#alert-notification.alert-success
+{
+    box-shadow: 0 0 10px #060;
+}
+#alert-notification.alert-warning
+{
+    box-shadow: 0 0 10px #660;
+}
+#alert-notification.alert-info
+{
+    box-shadow: 0 0 10px #066;
+}
+/*
+    Form validation classes
+--------------------------------------------------- */
+.control-label.required::after
+{
+    content: " *";
+    color: $brand-danger;
+}
+textarea
+{
+    resize: vertical;
+}
+.has-error .control-label
+{
+    color: $text-color;
+}
+.has-error .control-error
+{
+    color: $brand-danger;
+
+    & > *
+    {
+        display: block;
+    }
+}
+/*
+    Bootstrap Elements
+--------------------------------------------------- */
+.well, .jumbotron
+{
+    background: transparentize($gray-base, 0.5);
+}
+/* Custom Classes
+--------------------------------------------------- */
+.border-top-radius-none
+{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.border-bottom-radius-none
+{
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-google
+{
+    $color: #0266C8;
+    $darker: darken($color, 8%);
+    $darkerer: darken($darker, 8%);
+
+    background: $color;
+    border-color: $darker !important;
+
+    &:hover,
+    &:active,
+    &:focus
+    {
+        background: $darker;
+    }
+    &:active:hover,
+    &:active:focus
+    {
+        background: $darkerer;
+    }
+}
+.btn-facebook
+{
+    $color: #3B5998;
+    $darker: darken($color, 8%);
+    $darkerer: darken($darker, 8%);
+
+    background: $color;
+    border-color: $darker !important;
+
+    &:hover,
+    &:active,
+    &:focus
+    {
+        background: $darker;
+    }
+    &:active:hover,
+    &:active:focus
+    {
+        background: $darkerer;
+    }
+}

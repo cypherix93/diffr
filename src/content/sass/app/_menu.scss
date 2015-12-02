@@ -1,0 +1,19 @@
+﻿.navbar
+{
+    @include box-shadow($gray-light 0 0 3px);
+    
+    &.navbar-inverse
+    {
+        border: none;
+    }
+
+    .navbar-brand > .fa
+    {
+        font-size: 24px;
+    }
+    .navbar-nav > li > a .fa
+    {
+        font-size: 22px;
+        line-height: 0;
+    }
+}
