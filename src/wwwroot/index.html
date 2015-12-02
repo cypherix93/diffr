@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AngularApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>diffr | {{ PageName }}}</title>
+
+        <ng-include src="'views/_shared/assets.html'"></ng-include>
+    </head>
+    <body>
+        <ng-include src="'views/_shared/navigation.html'"></ng-include>
+
+        <div id="content-container" class="content container">
+            <div ng-view></div>
+        </div>
+    </body>
+</html>
