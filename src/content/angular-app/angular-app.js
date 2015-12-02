@@ -20,8 +20,13 @@ AngularApp
         $rootScope.$ui = $ui;
     })
     // Bootstrap global events
-    .run(function ($rootScope, $window)
+    .run(function ($rootScope, $location)
     {
+        $rootScope.$on("$routeChangeError", function ()
+        {
+            $location.url("/error/404");
+        });
+
         $rootScope.$ui.Ready(function ()
         {
             // This is to prevent JSON.stringify from making UTC dates with timezone offsets
@@ -38,21 +43,28 @@ AngularApp
     .config(function ($routeProvider)
     {
         $routeProvider
-            // route for the home page
+        // route for the home page
             .when("/",
                 {
                     templateUrl: "views/home/index.html"
                 })
-            // route pattern for the other pages
-            .when("/:name",
+            // route patterns for the other pages
+            .when("/:base/:sub",
                 {
-                    templateUrl: function(urlattr)
+                    templateUrl: function (urlattr)
                     {
-                        return "views/" + urlattr.name + "/index.html";
+                        return "views/" + urlattr.base + "/" + urlattr.sub + ".html";
+                    }
+                })
+            .when("/:base",
+                {
+                    templateUrl: function (urlattr)
+                    {
+                        return "views/" + urlattr.base + "/index.html";
                     }
                 });
     })
     .config(function ($locationProvider)
     {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     });
