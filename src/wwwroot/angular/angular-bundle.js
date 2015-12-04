@@ -32,7 +32,7 @@ AngularApp
     {
         $rootScope.$on("$routeChangeError", function ()
         {
-            $location.url("/error/404");
+            $location.url("/");
         });
 
         $rootScope.$ui.Ready(function ()
