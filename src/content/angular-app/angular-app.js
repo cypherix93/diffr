@@ -13,8 +13,16 @@ var AngularApp = angular.module("AngularApp",
 AngularApp
     .run(function ($rootScope, $http, $ui)
     {
-        // Put $rootScope variables here
-        $rootScope.AppName = "diffr";
+        $http.get("angular/meta.json")
+            .success(function(response)
+            {
+                $rootScope.AppName = response.name;
+                $rootScope.AppVersion = response.version;
+                $rootScope.AppDescription = response.description;
+                $rootScope.AppCopyright = response.copyright;
+                $rootScope.AppAuthors = response.authors;
+            });
+
         $rootScope.PageName = "Home";
 
         $rootScope.$ui = $ui;

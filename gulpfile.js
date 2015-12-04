@@ -3,7 +3,8 @@ var _package = {
     name: "diffr",
     version: "0.0.1",
     description: "Fast and lightweight web app for comparing (diffing) text",
-    copyright: "Copyright \u00A9 2015"
+    copyright: "Copyright \u00A9 2015",
+    authors: "cypherix93, lf-hernandez"
 };
 
 // Gulp
@@ -52,7 +53,7 @@ gulp.task("update-assembly-info", function ()
 {
     // Update bower.json Info
     var bowerJson = gulp.src("./bower.json")
-        .pipe(plugins.debug({ title: "json:" }))
+        .pipe(plugins.debug({ title: "bower.json:" }))
         .pipe(plugins.jsonEditor({
             name: _package.name,
             version: _package.version
@@ -61,12 +62,27 @@ gulp.task("update-assembly-info", function ()
 
     // Update package.json Info
     var packageJson = gulp.src("./package.json")
-        .pipe(plugins.debug({ title: "json:" }))
+        .pipe(plugins.debug({ title: "package.json:" }))
         .pipe(plugins.jsonEditor({
             name: _package.name,
-            version: _package.version
+            version: _package.version,
+            description: _package.description,
+            copyright: _package.copyright,
+            authors: _package.authors
         }))
         .pipe(gulp.dest("."));
+
+    // Update meta.json Info
+    var metaJson = gulp.src(wwwDir + "angular/meta.json")
+        .pipe(plugins.debug({ title: "meta.json:" }))
+        .pipe(plugins.jsonEditor({
+            name: _package.name,
+            version: _package.version,
+            description: _package.description,
+            copyright: _package.copyright,
+            authors: _package.authors
+        }))
+        .pipe(gulp.dest(wwwDir + "angular/"));
 
     return merge(bowerJson, packageJson);
 });

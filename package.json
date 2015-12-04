@@ -27,5 +27,8 @@
         "main-bower-files": "2.9.0",
         "merge-stream": "1.0.0",
         "run-sequence": "1.1.4"
-    }
+    },
+    "description": "Fast and lightweight web app for comparing (diffing) text",
+    "copyright": "Copyright © 2015",
+    "authors": "cypherix93, lf-hernandez"
 }

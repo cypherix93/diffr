@@ -1,0 +1,7 @@
+{
+    "name": "diffr",
+    "version": "0.0.1",
+    "description": "Fast and lightweight web app for comparing (diffing) text",
+    "copyright": "Copyright © 2015",
+    "authors": "cypherix93, lf-hernandez"
+}
