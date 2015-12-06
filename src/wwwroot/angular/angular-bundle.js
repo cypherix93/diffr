@@ -13,15 +13,28 @@ var AngularApp = angular.module("AngularApp",
 AngularApp
     .run(["$rootScope", "$http", "$ui", function ($rootScope, $http, $ui)
     {
-        // Put $rootScope variables here
-        $rootScope.AppName = "diffr";
+        $http.get("angular/meta.json")
+            .success(function(response)
+            {
+                $rootScope.AppName = response.name;
+                $rootScope.AppVersion = response.version;
+                $rootScope.AppDescription = response.description;
+                $rootScope.AppCopyright = response.copyright;
+                $rootScope.AppAuthors = response.authors;
+            });
+
         $rootScope.PageName = "Home";
 
         $rootScope.$ui = $ui;
     }])
     // Bootstrap global events
-    .run(["$rootScope", "$window", function ($rootScope, $window)
+    .run(["$rootScope", "$location", function ($rootScope, $location)
     {
+        $rootScope.$on("$routeChangeError", function ()
+        {
+            $location.url("/");
+        });
+
         $rootScope.$ui.Ready(function ()
         {
             // This is to prevent JSON.stringify from making UTC dates with timezone offsets
@@ -38,23 +51,30 @@ AngularApp
     .config(["$routeProvider", function ($routeProvider)
     {
         $routeProvider
-            // route for the home page
+        // route for the home page
             .when("/",
                 {
                     templateUrl: "views/home/index.html"
                 })
-            // route pattern for the other pages
-            .when("/:name",
+            // route patterns for the other pages
+            .when("/:base/:sub",
                 {
-                    templateUrl: function(urlattr)
+                    templateUrl: function (urlattr)
                     {
-                        return "views/" + urlattr.name + "/index.html";
+                        return "views/" + urlattr.base + "/" + urlattr.sub + ".html";
+                    }
+                })
+            .when("/:base",
+                {
+                    templateUrl: function (urlattr)
+                    {
+                        return "views/" + urlattr.base + "/index.html";
                     }
                 });
     }])
     .config(["$locationProvider", function ($locationProvider)
     {
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(false);
     }]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
 {

@@ -1,0 +1,26 @@
+#diff-container
+{
+    position: relative;
+
+    .col-xs-6
+    {
+        height: 100%;
+    }
+
+    .diff-area
+    {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        font-family: "Consolas", monospace;
+
+        &.diff-left
+        {
+
+        }
+        &.diff-right
+        {
+
+        }
+    }
+}
