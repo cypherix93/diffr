@@ -108,7 +108,7 @@ AngularApp.service("$ui", ["$timeout", function ($timeout)
         angular.element(document).ready(callback);
     };
 }]);
-AngularApp.service("diffrHelpers", function ()
+AngularApp.service("diffrHelpers", ["$sce", function ($sce)
 {
     var _this = this;
 
@@ -128,8 +128,6 @@ AngularApp.service("diffrHelpers", function ()
         {
             var diffLine = diffLines[i];
 
-            console.log(diffLine);
-
             if (diffLine.match === false)
             {
                 html += "<span style='color:red'>" + diffLine.text + "</span>";
@@ -142,9 +140,9 @@ AngularApp.service("diffrHelpers", function ()
             html += "<br>";
         }
 
-        return html;
+        return $sce.trustAsHtml(html);
     };
-});
+}]);
 AngularApp.service("$diffr", ["diffrHelpers", function(diffrHelpers)
 {
     var _this = this;

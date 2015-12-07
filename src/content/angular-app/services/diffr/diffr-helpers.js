@@ -1,4 +1,4 @@
-AngularApp.service("diffrHelpers", function ()
+AngularApp.service("diffrHelpers", function ($sce)
 {
     var _this = this;
 
@@ -18,8 +18,6 @@ AngularApp.service("diffrHelpers", function ()
         {
             var diffLine = diffLines[i];
 
-            console.log(diffLine);
-
             if (diffLine.match === false)
             {
                 html += "<span style='color:red'>" + diffLine.text + "</span>";
@@ -32,6 +30,6 @@ AngularApp.service("diffrHelpers", function ()
             html += "<br>";
         }
 
-        return html;
+        return $sce.trustAsHtml(html);
     };
 });
