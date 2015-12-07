@@ -1,23 +1,21 @@
-AngularApp.controller("DiffCtrl", function($scope)
+AngularApp.controller("DiffCtrl", function($scope, $diffr)
 {
-    $scope.DiffLeft = "";
-    $scope.DiffRight = "";
+    $scope.DiffText = {
+        Left: "",
+        Right: ""
+    };
 
-    $scope.DiffLeftData = [];
-    $scope.DiffRightData = [];
-
-    $scope.$watch("DiffLeft", function(newVal)
+    $scope.$watchGroup(["DiffText.Left", "DiffText.Right"], function(newVal)
     {
-        if(newVal === null)
+        var leftText = newVal[0];
+        var rightText = newVal[1];
+
+        if(leftText === null || rightText === null)
             return;
 
-        $scope.DiffLeftData = newVal.toString().split("<br>");
-    });
-    $scope.$watch("DiffRight", function(newVal)
-    {
-        if(newVal === null)
-            return;
+        var diffResult = $diffr.Diff(leftText, rightText);
 
-        $scope.DiffRightData = newVal.toString().split("<br>");
+        newVal[0] = diffResult.left;
+        newVal[1] = diffResult.right;
     });
 });

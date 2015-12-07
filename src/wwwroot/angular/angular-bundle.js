@@ -79,25 +79,38 @@ AngularApp
     }]);
 AngularApp.controller("DiffCtrl", ["$scope", function($scope)
 {
-    $scope.DiffLeft = "";
-    $scope.DiffRight = "";
+    $scope.DiffText = {
+        Left: "",
+        Right: ""
+    };
 
-    $scope.DiffLeftData = [];
-    $scope.DiffRightData = [];
+    $scope.DiffData = {
+        Left: [],
+        Right: []
+    };
 
-    $scope.$watch("DiffLeft", function(newVal)
+    var diffInnerHtml = {
+        Left: "",
+        Right: ""
+    };
+
+    $scope.$watchGroup(["DiffText.Left", "DiffText.Right"], function(newVal)
     {
-        if(newVal === null)
+        var leftText = newVal[0];
+        var rightText = newVal[1];
+
+        if(leftText === null || rightText === null)
             return;
 
-        $scope.DiffLeftData = newVal.toString().split("<br>");
+        console.log($("<div>" + leftText.toString() + "</div>").html());
     });
-    $scope.$watch("DiffRight", function(newVal)
-    {
-        if(newVal === null)
-            return;
 
-        $scope.DiffRightData = newVal.toString().split("<br>");
+    $scope.$watchGroup(["DiffData.Left", "DiffData.Right"], function(newVal)
+    {
+        var leftLines = newVal[0];
+        var rightLines = newVal[1];
+
+
     });
 }]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
@@ -108,3 +121,9 @@ AngularApp.service("$ui", ["$timeout", function ($timeout)
         angular.element(document).ready(callback);
     };
 }]);
+AngularApp.service("$diffr", function()
+{
+    var _this = this;
+
+
+});
