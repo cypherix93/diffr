@@ -3,13 +3,16 @@
 <div id="diff-container" class="row" ng-controller="DiffCtrl">
     <div class="col-xs-6">
         <div id="diffLeft" class="form-control diff-area diff-left"
-             contenteditable="true" strip-br="true" strip-tags="true" ng-model="DiffText.Left"></div>
+             contenteditable="true" strip-br="true" strip-tags="true" ng-model="DiffText.Left" ng-change="Differentiate()"></div>
     </div>
     <div class="col-xs-6">
         <div id="diffRight" class="form-control diff-area diff-right"
-             contenteditable="true" strip-br="true" strip-tags="true" ng-model="DiffText.Right"></div>
+             contenteditable="true" strip-br="true" strip-tags="true" ng-model="DiffText.Right" ng-change="Differentiate()"></div>
     </div>
 
-    <div class="col-xs-6" ng-bind-html="DiffResults.left"></div>
-    <div class="col-xs-6" ng-bind-html="DiffResults.right"></div>
+    <div class="col-xs-6" ng-bind-html="DiffResults.Left"></div>
+    <div class="col-xs-6" ng-bind-html="DiffResults.Right"></div>
+
+    {{DiffText.Left}}
+    {{DiffText.Right}}
 </div>

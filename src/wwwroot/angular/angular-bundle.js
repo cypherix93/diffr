@@ -89,16 +89,19 @@ AngularApp.controller("DiffCtrl", ["$scope", "$diffr", function($scope, $diffr)
         right: ""
     };
 
-    $scope.$watchGroup(["DiffText.Left", "DiffText.Right"], function(newVal)
+    $scope.Differentiate = function()
     {
-        var leftText = newVal[0];
-        var rightText = newVal[1];
+        var leftText = $scope.DiffText.Left;
+        var rightText = $scope.DiffText.Right;
 
         if(leftText === null || rightText === null)
             return;
 
         $scope.DiffResults = $diffr.Diff(leftText, rightText);
-    });
+
+        //$scope.DiffText.Left = $scope.DiffResults.Left;
+        //$scope.DiffText.Right = $scope.DiffResults.Right;
+    };
 }]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
 {
@@ -192,8 +195,8 @@ AngularApp.service("$diffr", ["diffrHelpers", function(diffrHelpers)
         }
 
         return {
-            left: diffrHelpers.ParseDiffToHtml(leftLines),
-            right: diffrHelpers.ParseDiffToHtml(rightLines)
+            Left: diffrHelpers.ParseDiffToHtml(leftLines),
+            Right: diffrHelpers.ParseDiffToHtml(rightLines)
         }
     };
 

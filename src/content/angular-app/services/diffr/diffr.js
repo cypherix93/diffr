@@ -47,8 +47,8 @@ AngularApp.service("$diffr", function(diffrHelpers)
         }
 
         return {
-            left: diffrHelpers.ParseDiffToHtml(leftLines),
-            right: diffrHelpers.ParseDiffToHtml(rightLines)
+            Left: diffrHelpers.ParseDiffToHtml(leftLines),
+            Right: diffrHelpers.ParseDiffToHtml(rightLines)
         }
     };
 

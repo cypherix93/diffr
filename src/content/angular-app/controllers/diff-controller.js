@@ -10,14 +10,17 @@ AngularApp.controller("DiffCtrl", function($scope, $diffr)
         right: ""
     };
 
-    $scope.$watchGroup(["DiffText.Left", "DiffText.Right"], function(newVal)
+    $scope.Differentiate = function()
     {
-        var leftText = newVal[0];
-        var rightText = newVal[1];
+        var leftText = $scope.DiffText.Left;
+        var rightText = $scope.DiffText.Right;
 
         if(leftText === null || rightText === null)
             return;
 
         $scope.DiffResults = $diffr.Diff(leftText, rightText);
-    });
+
+        //$scope.DiffText.Left = $scope.DiffResults.Left;
+        //$scope.DiffText.Right = $scope.DiffResults.Right;
+    };
 });
