@@ -1,8 +1,8 @@
-AngularApp.service("$diffr", function(diffrHelpers)
+AngularApp.service("$diffr", function (diffrHelpers)
 {
     var _this = this;
 
-    _this.Diff = function(left, right)
+    _this.Diff = function (left, right)
     {
         var leftText = diffrHelpers.ProcessHtml(left);
         var rightText = diffrHelpers.ProcessHtml(right);
@@ -10,12 +10,18 @@ AngularApp.service("$diffr", function(diffrHelpers)
         return _this.Differentiate(leftText, rightText);
     };
 
-    _this.Differentiate = function(leftText, rightText)
+    _this.Differentiate = function (leftText, rightText)
     {
         var leftLines = _this.GetDiffLines(leftText);
         var rightLines = _this.GetDiffLines(rightText);
 
         var maxLength = Math.max(leftLines.length, rightLines.length);
+
+        if (maxLength === 0)
+            return {
+                Left: "",
+                Right: ""
+            };
 
         for (var i = 0; i < maxLength; i++)
         {
@@ -25,19 +31,11 @@ AngularApp.service("$diffr", function(diffrHelpers)
             // Empty checks
             if (!leftLine)
             {
-                leftLines[i] = {
-                    text: "",
-                    match: false
-                };
                 rightLine.match = false;
                 continue;
             }
             if (!rightLine)
             {
-                rightLines[i] = {
-                    text: "",
-                    match: false
-                };
                 leftLine.match = false;
                 continue;
             }
@@ -52,17 +50,20 @@ AngularApp.service("$diffr", function(diffrHelpers)
         }
     };
 
-    _this.DiffLine = function(leftLine, rightLine)
+    _this.DiffLine = function (leftLine, rightLine)
     {
-        if(leftLine.text !== rightLine.text)
+        if (leftLine.text !== rightLine.text)
         {
             leftLine.match = false;
             rightLine.match = false;
         }
     };
 
-    _this.GetDiffLines = function(text)
+    _this.GetDiffLines = function (text)
     {
+        if (!text)
+            return [];
+
         var lines = text.toString().split("\n");
         var diffLines = [];
 

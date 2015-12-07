@@ -1,4 +1,4 @@
-AngularApp.service("diffrHelpers", function ($sce)
+AngularApp.service("diffrHelpers", function ()
 {
     var _this = this;
 
@@ -12,10 +12,16 @@ AngularApp.service("diffrHelpers", function ($sce)
 
     _this.ParseDiffToHtml = function (diffLines)
     {
+        if (diffLines.length === 0)
+            return "";
+
         var html = "";
 
         for (var i = 0; i < diffLines.length; i++)
         {
+            if (i > 0)
+                html += "<br>";
+
             var diffLine = diffLines[i];
 
             if (diffLine.match === false)
@@ -26,10 +32,8 @@ AngularApp.service("diffrHelpers", function ($sce)
             {
                 html += diffLine.text;
             }
-
-            html += "<br>";
         }
 
-        return $sce.trustAsHtml(html);
+        return html;
     };
 });
