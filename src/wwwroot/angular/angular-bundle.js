@@ -6,7 +6,8 @@ var AngularApp = angular.module("AngularApp",
         "ngRoute",
         "ngAnimate",
         "ngMessages",
-        "ui.bootstrap"
+        "ui.bootstrap",
+        "contenteditable"
     ]);
 
 // Configure Angular App Initialization
