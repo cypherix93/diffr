@@ -5838,14 +5838,19 @@ button.close {
   box-shadow: #555555 0 0 5px; }
 
 #diff-container {
-  position: relative; }
+  position: absolute;
+  top: 60px;
+  bottom: 30px;
+  left: 0;
+  right: 0; }
   #diff-container .col-xs-6 {
     height: 100%; }
   #diff-container .diff-area {
     width: 100%;
     height: 100%;
-    resize: none;
-    font-family: "Consolas", monospace; }
+    font-family: "Consolas", monospace;
+    overflow-x: hidden;
+    overflow-y: scroll; }
 
 /*
     Global General Elements
