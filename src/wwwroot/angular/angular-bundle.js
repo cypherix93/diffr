@@ -77,6 +77,29 @@ AngularApp
     {
         $locationProvider.html5Mode(false);
     }]);
+AngularApp.controller("DiffCtrl", ["$scope", function($scope)
+{
+    $scope.DiffLeft = "";
+    $scope.DiffRight = "";
+
+    $scope.DiffLeftData = [];
+    $scope.DiffRightData = [];
+
+    $scope.$watch("DiffLeft", function(newVal)
+    {
+        if(newVal === null)
+            return;
+
+        $scope.DiffLeftData = newVal.toString().split("<br>");
+    });
+    $scope.$watch("DiffRight", function(newVal)
+    {
+        if(newVal === null)
+            return;
+
+        $scope.DiffRightData = newVal.toString().split("<br>");
+    });
+}]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
 {
     // When the DOM is ready, call callback.

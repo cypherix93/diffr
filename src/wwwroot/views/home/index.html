@@ -1,15 +1,15 @@
 <h1 class="page-header">diffr</h1>
 
-<div id="diff-container" class="row">
+<div id="diff-container" class="row" ng-controller="DiffCtrl">
     <div class="col-xs-6">
         <div id="diffLeft" class="form-control diff-area diff-left"
-             contenteditable="true" strip-br="true" ng-model="diffLeft"></div>
+             contenteditable="true" strip-br="true" ng-model="DiffLeft"></div>
     </div>
     <div class="col-xs-6">
         <div id="diffRight" class="form-control diff-area diff-right"
-             contenteditable="true" strip-br="true" ng-model="diffRight"></div>
+             contenteditable="true" strip-br="true" ng-model="DiffRight"></div>
     </div>
 
-    {{diffLeft}}
-    {{diffRight}}
+    {{DiffLeftData}}
+    {{DiffRightData}}
 </div>
