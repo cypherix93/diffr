@@ -29,6 +29,7 @@ AngularApp.service("$diffr", function(diffrHelpers)
                     text: "",
                     match: false
                 };
+                rightLine.match = false;
                 continue;
             }
             if (!rightLine)
@@ -37,6 +38,7 @@ AngularApp.service("$diffr", function(diffrHelpers)
                     text: "",
                     match: false
                 };
+                leftLine.match = false;
                 continue;
             }
 
