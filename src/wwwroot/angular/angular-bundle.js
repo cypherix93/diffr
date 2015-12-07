@@ -77,21 +77,16 @@ AngularApp
     {
         $locationProvider.html5Mode(false);
     }]);
-AngularApp.controller("DiffCtrl", ["$scope", function($scope)
+AngularApp.controller("DiffCtrl", ["$scope", "$diffr", function($scope, $diffr)
 {
     $scope.DiffText = {
         Left: "",
         Right: ""
     };
 
-    $scope.DiffData = {
-        Left: [],
-        Right: []
-    };
-
-    var diffInnerHtml = {
-        Left: "",
-        Right: ""
+    $scope.DiffResults = {
+        left: "",
+        right: ""
     };
 
     $scope.$watchGroup(["DiffText.Left", "DiffText.Right"], function(newVal)
@@ -102,15 +97,7 @@ AngularApp.controller("DiffCtrl", ["$scope", function($scope)
         if(leftText === null || rightText === null)
             return;
 
-        console.log($("<div>" + leftText.toString() + "</div>").html());
-    });
-
-    $scope.$watchGroup(["DiffData.Left", "DiffData.Right"], function(newVal)
-    {
-        var leftLines = newVal[0];
-        var rightLines = newVal[1];
-
-
+        $scope.DiffResults = $diffr.Diff(leftText, rightText);
     });
 }]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
@@ -121,9 +108,118 @@ AngularApp.service("$ui", ["$timeout", function ($timeout)
         angular.element(document).ready(callback);
     };
 }]);
-AngularApp.service("$diffr", function()
+AngularApp.service("diffrHelpers", function ()
 {
     var _this = this;
 
+    _this.ProcessHtml = function (htmlText)
+    {
+        var html = $("<div>" + htmlText + "</div>");
+        html.find("br").replaceWith("\n");
 
+        return html.text();
+    };
+
+    _this.ParseDiffToHtml = function (diffLines)
+    {
+        var html = "";
+
+        for (var i = 0; i < diffLines.length; i++)
+        {
+            var diffLine = diffLines[i];
+
+            console.log(diffLine);
+
+            if (diffLine.match === false)
+            {
+                html += "<span style='color:red'>" + diffLine.text + "</span>";
+            }
+            else
+            {
+                html += diffLine.text;
+            }
+
+            html += "<br>";
+        }
+
+        return html;
+    };
 });
+AngularApp.service("$diffr", ["diffrHelpers", function(diffrHelpers)
+{
+    var _this = this;
+
+    _this.Diff = function(left, right)
+    {
+        var leftText = diffrHelpers.ProcessHtml(left);
+        var rightText = diffrHelpers.ProcessHtml(right);
+
+        return _this.Differentiate(leftText, rightText);
+    };
+
+    _this.Differentiate = function(leftText, rightText)
+    {
+        var leftLines = _this.GetDiffLines(leftText);
+        var rightLines = _this.GetDiffLines(rightText);
+
+        var maxLength = Math.max(leftLines.length, rightLines.length);
+
+        for (var i = 0; i < maxLength; i++)
+        {
+            var leftLine = leftLines[i];
+            var rightLine = rightLines[i];
+
+            // Empty checks
+            if (!leftLine)
+            {
+                leftLines[i] = {
+                    text: "",
+                    match: false
+                };
+                continue;
+            }
+            if (!rightLine)
+            {
+                rightLines[i] = {
+                    text: "",
+                    match: false
+                };
+                continue;
+            }
+
+            // Diff the text on each side
+            _this.DiffLine(leftLine, rightLine);
+        }
+
+        return {
+            left: diffrHelpers.ParseDiffToHtml(leftLines),
+            right: diffrHelpers.ParseDiffToHtml(rightLines)
+        }
+    };
+
+    _this.DiffLine = function(leftLine, rightLine)
+    {
+        if(leftLine.text !== rightLine.text)
+        {
+            leftLine.match = false;
+            rightLine.match = false;
+        }
+    };
+
+    _this.GetDiffLines = function(text)
+    {
+        var lines = text.toString().split("\n");
+        var diffLines = [];
+
+        for (var i = 0; i < lines.length; i++)
+        {
+            var line = lines[i];
+
+            diffLines.push({
+                text: line
+            });
+        }
+
+        return diffLines;
+    };
+}]);
