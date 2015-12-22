@@ -19,14 +19,25 @@ AngularApp.service("diffrHelpers", function ()
 
         for (var i = 0; i < diffLines.length; i++)
         {
-            if (i > 0)
-                html += "<br>";
-
             var diffLine = diffLines[i];
 
             if (diffLine.match === false)
             {
-                html += "<span style='color:red'>" + diffLine.text + "</span>";
+                html += "<div style='background:#fee'>";
+
+                for (var j = 0; j < diffLine.matchMap.length; j++)
+                {
+                    if(diffLine.matchMap[j] === true)
+                    {
+                        html += diffLine.text[j];
+                    }
+                    else
+                    {
+                        html += "<span style='color:red'>" + (diffLine.text[j] || "") + "</span>";
+                    }
+                }
+
+                html += "</div>";
             }
             else
             {

@@ -22,7 +22,7 @@ AngularApp.controller("DiffCtrl", function ($scope, $sce, $diffr)
 
         console.log(results);
 
-        $scope.DiffText.Left = results.Left;
-        $scope.DiffText.Right = results.Right;
+        //$scope.DiffText.Left = results.Left;
+        //$scope.DiffText.Right = results.Right;
     };
 });

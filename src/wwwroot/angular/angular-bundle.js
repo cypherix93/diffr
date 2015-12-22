@@ -101,8 +101,8 @@ AngularApp.controller("DiffCtrl", ["$scope", "$sce", "$diffr", function ($scope,
 
         console.log(results);
 
-        $scope.DiffText.Left = results.Left;
-        $scope.DiffText.Right = results.Right;
+        //$scope.DiffText.Left = results.Left;
+        //$scope.DiffText.Right = results.Right;
     };
 }]);
 AngularApp.service("$ui", ["$timeout", function ($timeout)
@@ -134,14 +134,25 @@ AngularApp.service("diffrHelpers", function ()
 
         for (var i = 0; i < diffLines.length; i++)
         {
-            if (i > 0)
-                html += "<br>";
-
             var diffLine = diffLines[i];
 
             if (diffLine.match === false)
             {
-                html += "<span style='color:red'>" + diffLine.text + "</span>";
+                html += "<div style='background:#fee'>";
+
+                for (var j = 0; j < diffLine.matchMap.length; j++)
+                {
+                    if(diffLine.matchMap[j] === true)
+                    {
+                        html += diffLine.text[j];
+                    }
+                    else
+                    {
+                        html += "<span style='color:red'>" + (diffLine.text[j] || "") + "</span>";
+                    }
+                }
+
+                html += "</div>";
             }
             else
             {
@@ -179,20 +190,11 @@ AngularApp.service("$diffr", ["diffrHelpers", function (diffrHelpers)
 
         for (var i = 0; i < maxLength; i++)
         {
+            leftLines[i] = leftLines[i] || { text: "" };
+            rightLines[i] = rightLines[i] || { text: "" };
+
             var leftLine = leftLines[i];
             var rightLine = rightLines[i];
-
-            // Empty checks
-            if (!leftLine)
-            {
-                rightLine.match = false;
-                continue;
-            }
-            if (!rightLine)
-            {
-                leftLine.match = false;
-                continue;
-            }
 
             // Diff the text on each side
             _this.DiffLine(leftLine, rightLine);
@@ -206,10 +208,37 @@ AngularApp.service("$diffr", ["diffrHelpers", function (diffrHelpers)
 
     _this.DiffLine = function (leftLine, rightLine)
     {
-        if (leftLine.text !== rightLine.text)
+        // If line matches, do nothing
+        if (leftLine.text === rightLine.text)
+            return;
+
+        // If it doesn't match, calculate the diff
+        leftLine.match = false;
+        rightLine.match = false;
+
+        var maxLength = Math.max(leftLine.text.length, rightLine.text.length);
+
+        if (maxLength === 0)
+            return;
+
+        leftLine.matchMap = [];
+        rightLine.matchMap = [];
+
+        for (var i = 0; i < maxLength; i++)
         {
-            leftLine.match = false;
-            rightLine.match = false;
+            var leftChar = leftLine.text[i];
+            var rightChar = rightLine.text[i];
+
+            if(leftChar === rightChar)
+            {
+                leftLine.matchMap.push(true);
+                rightLine.matchMap.push(true);
+            }
+            else
+            {
+                leftLine.matchMap.push(false);
+                rightLine.matchMap.push(false);
+            }
         }
     };
 
